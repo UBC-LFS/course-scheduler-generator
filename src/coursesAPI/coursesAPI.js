@@ -87,7 +87,7 @@ const parseOutSectionsAndAddEnrolment = (sectionsBlob, code, number, callback) =
             // for sections with NO meeting times
             if (typeof section.teachingunits.teachingunit.meetings === 'undefined') {
                 return
-            }
+            }   
             parseOutHelperAndWriteToCSV(section, code, number, sectionNumber, instructors, activity, credits, termCd, startWk, endWk, (obj) => {
                 callback(obj)
             })
