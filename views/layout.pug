@@ -2,11 +2,13 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/styles/style.css')
-    link(rel='stylesheet', href='/styles/selectivity-jquery.min.css')
-    script(src="/scripts/request.js")
+    if append === undefined
+      - append = ''
+    link(rel='stylesheet', href = append + '/styles/style.css')
+    link(rel='stylesheet', href = append + '/styles/selectivity-jquery.min.css')
+    script(src = append + "/scripts/request.js")
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
-    script(src='/scripts/selectivity-jquery.min.js')
-    script(src='/scripts/spin.min.js')
+    script(src = append +'/scripts/selectivity-jquery.min.js')
+    script(src = append +'/scripts/spin.min.js')
   body
     block content

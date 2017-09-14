@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch'
 import { Router } from 'express';
 import { getDept, getAllDeptCodes } from './coursesAPI/coursesAPI'
 import { createFileName } from './coursesAPI/constants'
+require('dotenv').config()
 
 const routes = Router();
 
@@ -13,7 +14,9 @@ const routes = Router();
 // function that writes csv
 
 routes.get('/', (req, res) => {
-  res.render('index', { title: 'Course Section Generator' });
+  if (process.env.BUILD === 'PRODUCTION') {
+    res.render('index', { title: 'Course Section Generator', append: '/course-section-generator' });
+  } else res.render('index', { title: 'Course Section Generator' });
 });
 
 routes.get('/deptCodes', (req, res) => {
