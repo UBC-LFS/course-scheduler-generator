@@ -1,5 +1,7 @@
 # UBC Course Schedule 
 
+Server build: https://github.com/UBC-LFS/course-scheduler
+
 This Node application outputs a CSV of all course sections, along with enrolment data, for a given department code (or array of codes).
 
 It may take some time to run, depending on the number of sections, because the enrolment data is not returned via the courses.students API, and must be scraped.
