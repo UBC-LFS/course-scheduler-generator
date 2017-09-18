@@ -15,7 +15,7 @@ const routes = Router();
 
 routes.get('/', (req, res) => {
   if (process.env.BUILD === 'PRODUCTION') {
-    res.render('index', { title: 'Course Section Generator', append: '/course-section-generator' });
+    res.render('index', { title: 'Course Section Generator', append: '/course-scheduler-generator' });
   } else res.render('index', { title: 'Course Section Generator' });
 });
 
