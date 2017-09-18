@@ -53,6 +53,7 @@ const writeToCSV = (meetingObj, arrayOfDept) => {
                     if (err) throw err
                 })
             } 
+            
     })
 }
 
