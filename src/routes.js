@@ -28,7 +28,7 @@ routes.get('/sections', (req, res) => {
   const arrayOfDepts = dept.split(' ')
   console.log(req.headers.host)
   getDept(arrayOfDepts).then(x => {
-    res.send('https://' + req.headers.host + '/output/' + createFileName(arrayOfDepts) + '.csv')
+    res.send('https://' + req.headers.host + '/course-scheduler-generator' + '/output/' + createFileName(arrayOfDepts) + '.csv')
   })
 })
 
