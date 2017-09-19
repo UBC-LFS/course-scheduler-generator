@@ -26,9 +26,9 @@ routes.get('/deptCodes', (req, res) => {
 routes.get('/sections', (req, res) => {
   const dept = req.query.codes
   const arrayOfDepts = dept.split(' ')
-  console.log(request.headers.host)
+  console.log(req.headers.host)
   getDept(arrayOfDepts).then(x => {
-    res.send(request.headers.host + '/output/' + createFileName(arrayOfDepts) + '.csv')
+    res.send(req.headers.host + '/output/' + createFileName(arrayOfDepts) + '.csv')
   })
 })
 
