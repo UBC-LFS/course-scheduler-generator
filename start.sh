@@ -1,5 +1,7 @@
 #!/bin/bash
 
+pm2 delete course-section-generator
+
 source .env
 
 npm install
