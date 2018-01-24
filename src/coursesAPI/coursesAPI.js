@@ -5,10 +5,10 @@ import cheerio from 'cheerio'
 import { writeToCSV, setupHeaders } from './writeToCSV'
 import fs from 'fs'
 
-const x2js = new X2JS();
+const x2js = new X2JS()
 
 const getAllDeptCodes = () => {
-    return fetch('https://courses.students.ubc.ca/cs/servlets/SRVCourseSchedule?&sessyr=2017&sesscd=W&output=2')
+    return fetch('https://courses.students.ubc.ca/cs/servlets/SRVCourseSchedule?&sessyr=2018&sesscd=S&output=2')
         .then(response => response.text())
         .then(text => x2js.xml2js(text))
 }
@@ -31,7 +31,7 @@ const getEnrolmentInfo = (code, number, section, callback) => {
     })
 }
 
-const parseOutHelperAndWriteToCSV = (section, code, number, sectionNumber, instructors, activity, credits, termCd, startWk, endWk, callback) => {
+const parseOutHelper = (section, code, number, sectionNumber, instructors, activity, credits, termCd, startWk, endWk, callback) => {
     if (typeof section.teachingunits.teachingunit.meetings.meeting !== 'undefined' && section.teachingunits.teachingunit.meetings.meeting.length > 0) {
         getEnrolmentInfo(code, number, sectionNumber, (enrolmentInfo) => {
             section.teachingunits.teachingunit.meetings.meeting.map(meeting => {
@@ -74,8 +74,8 @@ const parseOutHelperAndWriteToCSV = (section, code, number, sectionNumber, instr
 
 const parseOutSectionsAndAddEnrolment = (sectionsBlob, code, number, callback) => {
     // more than 1 section 
+    // console.log(JSON.stringify(sectionsBlob, null, 2))
     if (typeof sectionsBlob.sections.section !== 'undefined' && sectionsBlob.sections.section.length > 0) {
-
         sectionsBlob.sections.section.map(section => {
             const sectionNumber = section._key
             const instructors = section.instructors
@@ -88,7 +88,7 @@ const parseOutSectionsAndAddEnrolment = (sectionsBlob, code, number, callback) =
             if (typeof section.teachingunits.teachingunit.meetings === 'undefined') {
                 return
             }   
-            parseOutHelperAndWriteToCSV(section, code, number, sectionNumber, instructors, activity, credits, termCd, startWk, endWk, (obj) => {
+            parseOutHelper(section, code, number, sectionNumber, instructors, activity, credits, termCd, startWk, endWk, (obj) => {
                 callback(obj)
             })
         })
@@ -109,7 +109,7 @@ const parseOutSectionsAndAddEnrolment = (sectionsBlob, code, number, callback) =
         const termCd = section.teachingunits.teachingunit._termcd
         const startWk = section.teachingunits.teachingunit._startwk
         const endWk = section.teachingunits.teachingunit._endwk
-        parseOutHelperAndWriteToCSV(section, code, number, sectionNumber, instructors, activity, credits, termCd, startWk, endWk, (obj) => {
+        parseOutHelper(section, code, number, sectionNumber, instructors, activity, credits, termCd, startWk, endWk, (obj) => {
             callback(obj)
         })
     }
@@ -135,9 +135,13 @@ const getSectionsForCourse = ({ code, courseNumbers }, arrayOfDept) => {
 
 const getDept = (arrayOfDept) => {
     setupHeaders(arrayOfDept)
+    let counter = 0
     arrayOfDept.map(code =>
         getCoursesForCode(code).then(courseObject => {
             const courseNumbers = courseObject.courses.course.map(course => course._key)
+            counter += courseNumbers.length
+            console.log(courseNumbers)
+            console.log('number of courses are: ', counter)
             const codeAndNumbers = {
                 code,
                 courseNumbers: courseNumbers
@@ -174,4 +178,4 @@ const getDept = (arrayOfDept) => {
 export {
     getDept,
     getAllDeptCodes
-} 
+}
