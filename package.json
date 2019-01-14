@@ -35,7 +35,7 @@
     "eslint"
   ],
   "dependencies": {
-    "babel-cli": "^6.24.1",
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.2",
@@ -44,10 +44,10 @@
     "express": "^4.16.2",
     "isomorphic-fetch": "^2.2.1",
     "json2csv": "^3.11.5",
-    "morgan": "^1.9.0",
-    "pug": "^2.0.0-beta11",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.0",
     "ramda": "^0.24.1",
-    "request": "^2.83.0",
+    "request": "^2.84.0",
     "rimraf": "^2.6.1",
     "x2js": "^3.1.1"
   },
